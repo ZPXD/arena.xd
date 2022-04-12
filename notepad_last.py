@@ -1,0 +1,1 @@
+print('Sprawdzany')print('Koncept tego co można robić na serwrerze jako player')print('player 1')print('player 2') 

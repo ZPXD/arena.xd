@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <br>
+   	<p>terminal.</p>
+
+
+    <div class="form-wrapper">
+
+        <form  style="text-align:center" action="" method="post">
+        
+            {{ form.csrf_token() }}
+
+            <p>
+            {{ form.notepad.label() }}
+            {{ form.notepad(rows='50',cols='100')}}
+            </p>
+
+            {{ form.submit }}
+
+        </form>
+    </div>
+{% endblock %}

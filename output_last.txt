@@ -1,0 +1,4 @@
+Sprawdzany
+Koncept tego co można robić na serwrerze jako player
+player 1
+player 2

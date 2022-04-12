@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <br>
+   	<p>terminal.</p>
+    <br>
+    <div class="form-wrapper">
+        <form  style="text-align:center" action="" method="post">
+            {% for line in output_lines %}
+                <p>{{line}}</p>
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}
