@@ -3,7 +3,6 @@ from flask import request
 
 from flask_wtf import FlaskForm
 
-
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import (
     StringField,
@@ -26,13 +25,16 @@ app.secret_key = 'super secret key'
 def index():
     return render_template("index.html")
 
+
 @app.route('/login')
 def login():
     return render_template("login.html")
 
+
 @app.route('/signup')
 def signup():
     return render_template("signup.html")
+
 
 @app.route('/logout')
 def logout():
@@ -45,6 +47,7 @@ def logout():
 def matches():
     return render_template("matches.html")
 
+
 @app.route('/create_match')
 def create_match():
     return render_template("create_match.html")
@@ -56,17 +59,21 @@ def create_match():
 def match():
     return render_template("create_match.html")
 
+
 @app.route('/match/antechamber/<match>')
 def antechamber(match):
     return render_template("antechamber.html", match=match)
+
 
 @app.route('/match/<match>')
 def match_view(match):
     return render_template("match_view.html", match=match)
 
+
 @app.route('/match/<match>/<player>')
 def player_view(match, player):
     return render_template("player_view.html", match=match, player=player)
+
 
 @app.route('/match/<match>/<player>/result')
 def result(match, player):
@@ -97,13 +104,15 @@ def save_notepad(file_lines):
             f.write(line)
     os.system('python3 {} > {}'.format(program_file, output_file))
 
+
 def read_output():
     output_file = 'output.txt'
     with open(output_file, 'r+') as f:
         output_lines = f.readlines()
     return output_lines
 
-# Notepad & effect example 
+
+# Notepad & effect example
 
 @app.route('/notepad', methods=["GET", "POST"])
 def notepad():
@@ -114,10 +123,12 @@ def notepad():
         save_notepad(notepad_lines)
     return render_template("terminal.html", form=form)
 
+
 @app.route('/output', methods=["GET", "POST"])
 def output():
     output_lines = read_output()
     return render_template("output.html", output_lines=output_lines)
+
 
 # Notepad Form
 
@@ -125,5 +136,19 @@ class NotepadForm(FlaskForm):
     notepad = TextAreaField('Notepad')
     submit = SubmitField('Submit')
 
-if __name__=="__main__":
+
+# Moje zmiany MG
+
+@app.route('/output/data', methods=['POST', 'OPTIONS'])
+def output_data():
+    data = read_output()
+    return ''.join(data)
+
+
+@app.route('/output_test')
+def output_test():
+    return render_template('test_button.html')
+
+
+if __name__ == "__main__":
     app.run()
