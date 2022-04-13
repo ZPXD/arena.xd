@@ -151,11 +151,14 @@ def output_test():
 @app.route('/player_test', methods=['POST', 'GET', 'OPTIONS'])
 def player_test():
     form = NotepadForm()
+    content_textarea = ""
     if form.validate_on_submit():
         notepad_text = form.notepad.data
         notepad_lines = notepad_text.split('\n')
         save_notepad(notepad_lines)
-    return render_template("player_test.html", form=form)
+        if content_textarea != None:
+            content_textarea = ' '.join(read_output())
+    return render_template("player_test.html", form=form, content_textarea=content_textarea)
 
 if __name__ == "__main__":
     app.run()

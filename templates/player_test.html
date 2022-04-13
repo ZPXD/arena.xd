@@ -24,10 +24,12 @@
     </div>
 
     <div>
-        <button class="btn">Załaduj kontent z serwera</button>
+        <!-- Niepotrzebny ten przycisk
+            <button class="btn">Załaduj kontent z serwera</button>
+            //-->
         <div>
             <p>Tutaj będzie wrzucony kontent z serwera:</p>
-            <textarea class="content" cols="20"></textarea>
+            <textarea class="content" cols="20">{{content_textarea}}</textarea>
         </div>
         <script src="{{url_for('static', filename='script.js')}}" type="application/javascript"></script>
     <div>
