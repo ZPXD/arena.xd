@@ -144,11 +144,18 @@ def output_data():
     data = read_output()
     return ''.join(data)
 
-
 @app.route('/output_test')
 def output_test():
     return render_template('test_button.html')
 
+@app.route('/player_test', methods=['POST', 'GET', 'OPTIONS'])
+def player_test():
+    form = NotepadForm()
+    if form.validate_on_submit():
+        notepad_text = form.notepad.data
+        notepad_lines = notepad_text.split('\n')
+        save_notepad(notepad_lines)
+    return render_template("player_test.html", form=form)
 
 if __name__ == "__main__":
     app.run()
