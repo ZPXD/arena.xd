@@ -1,0 +1,15 @@
+.CodeMirror {
+    border: 1px solid lightgray;
+    min-height: 70vh;
+}
+
+.output-field {
+    width: 100%;
+    min-height: 70vh;
+    border: 1px solid lightgray;
+    outline: 0;
+}
+
+.output-field:focus {
+    background-color: whitesmoke;
+}

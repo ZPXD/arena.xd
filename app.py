@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask import request
 
 from flask_wtf import FlaskForm
@@ -139,10 +139,30 @@ class NotepadForm(FlaskForm):
 
 # Moje zmiany MG
 
-@app.route('/output/data', methods=['POST', 'OPTIONS'])
+def read_file(file_name):
+    with open(file_name, 'r+') as f:
+        output_lines = f.readlines()
+    return output_lines
+
+
+@app.route('/output/data', methods=['GET', 'POST', 'OPTIONS'])
 def output_data():
-    data = read_output()
-    return ''.join(data)
+
+    if request.method == 'GET':
+        data_as_text = ''.join(read_file('notepad.py'))
+        print(data_as_text)
+        return data_as_text
+
+    if request.method == 'POST':
+        if request.json.get('code'):
+            print(request.json.get('code'))
+
+            # w parametrze request.json.get('code') dostajemy kod do uruchomienia na serwerze
+            # tutaj trzeba wykonać kod na serwerze i przesłać wyniki do klienta
+
+            data_as_text = ''.join(read_file('output.txt'))
+            print(data_as_text)
+            return jsonify({'status': 'ok', 'results': data_as_text})
 
 
 @app.route('/output_test')
@@ -151,4 +171,4 @@ def output_test():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
