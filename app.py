@@ -2,14 +2,8 @@ from flask import Flask, render_template
 from flask import request
 
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import (
-    StringField,
-    TextAreaField,
-    SubmitField,
-    PasswordField,
-    DateField,
-    SelectField
-)
+from wtforms import StringField, TextAreaField, SubmitField, PasswordField, DateField, SelectField
+
 import os
 
 app = Flask(__name__)
@@ -23,11 +17,9 @@ app.secret_key = 'super secret key'
 def index():
     return render_template("index.html")
 
-
 @app.route('/login')
 def login():
     return render_template("login.html")
-
 
 @app.route('/signup')
 def signup():
@@ -119,6 +111,17 @@ def player_test():
         output = ''.join(read_output())
     return render_template("player_test.html", form=form, output=output)
 
+@app.route('/output/data', methods=['POST', 'OPTIONS'])
+def output_data():
+    data = read_output()
+    return ''.join(data)
+
+
+@app.route('/output_test')
+def output_test():
+    return render_template('test_button.html')
+
+
 # Testing
 
 def player1_test():
@@ -136,5 +139,17 @@ class NotepadForm(FlaskForm):
     notepad = TextAreaField()
     submit = SubmitField('Uruchom')
 
-if __name__ == "__main__":
-    app.run()
+
+# Errors
+
+@app.errorhandler(404)
+def handle_404(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def handle_500(e):
+    return render_template('500.html'), 500
+
+
+if __name__=="__main__":
+    app.run(debug=True)
