@@ -46,6 +46,7 @@ def login():
         password = form.password.data
 
         user = User.query.filter_by(email=email).first()
+        print(user)
         if user:
             if user.check_password(password):
                 login_user(user, force=True)
@@ -80,11 +81,6 @@ def signup():
 def logout():
     logout_user()
     return render_template("logout.html")
-
-@login_required
-@app.route('/secret')
-def secret():
-    return "elooo"
 
 @login_required
 @app.route('/profile/<name>')
